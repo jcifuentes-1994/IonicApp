@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Router,ActivatedRoute } from '@angular/router';
+import { Producto } from 'src/app/models/producto';
+import { ProductosService } from 'src/app/service/productos/productos.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,11 +9,27 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private router: Router) {}
+  productos: Producto[] = [];
+
+  constructor(private router: Router, private route: ActivatedRoute, private _productoService: ProductosService) {}
 
   ngOnInit(){
+    this.productos = this._productoService.obtener_lista_productos();
+    console.info(this.productos)
     const x = this.router.getCurrentNavigation()
     console.info(x)
+    const state = x?.extras.state
+    console.info(state)
+  }
+
+  detalle_producto(producto: Producto){
+    console.info(producto)
+    this.router.navigate(['detalle-producto'],{
+      queryParams:{
+        producto: JSON.stringify(producto)
+      },
+      relativeTo: this.route
+    })
   }
 
 }
