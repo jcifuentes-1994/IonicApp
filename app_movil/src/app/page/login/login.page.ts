@@ -18,18 +18,22 @@ export class LoginPage implements OnInit {
   }
 
   login(username: string, password: string){
+    
     if (this._usuarioService.validar_usuario(username,password)) {
+      const usuario = this._usuarioService.obtener_usuario(username,password);
+      if (usuario) {
       //dirigir a otra pestaña
       console.info("usuario existe")
 
       this.router.navigate(['home'],{
         state: {
           usuario:{
-            username: username,
-            password: password
+            username: usuario.username,
+            role: usuario.role.id
           }
         }
-      })
+      });
+    }
     }else{
       console.error("usuario no existe")
     }

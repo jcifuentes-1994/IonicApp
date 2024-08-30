@@ -10,16 +10,22 @@ import { ProductosService } from 'src/app/service/productos/productos.service';
 export class HomePage {
 
   productos: Producto[] = [];
+  isAdmin: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private _productoService: ProductosService) {}
 
   ngOnInit(){
     this.productos = this._productoService.obtener_lista_productos();
-    console.info(this.productos)
-    const x = this.router.getCurrentNavigation()
-    console.info(x)
-    const state = x?.extras.state
-    console.info(state)
+    console.info(this.productos);
+    const x = this.router.getCurrentNavigation();
+    console.info(x);
+    const state = x?.extras.state;
+    console.info(state);
+    if (state && state['usuario']) {
+      this.isAdmin = state['usuario'].role === 1;
+    }else{
+      console.error('Rol de usuario no determinado')
+    }
   }
 
   detalle_producto(producto: Producto){
@@ -30,6 +36,10 @@ export class HomePage {
       },
       relativeTo: this.route
     })
+  }
+
+  agregarProducto(){
+    
   }
 
 }

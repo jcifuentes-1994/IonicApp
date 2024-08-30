@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Lista de Productos
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,6 +19,8 @@
         <ion-label>{{producto.nombre}}</ion-label>
       </ion-item>
     </ion-list>
+    <ion-button *ngIf="isAdmin" (click)="agregarProducto()">Agregar Producto</ion-button>
+
   </ion-content>
 
 </ion-content>

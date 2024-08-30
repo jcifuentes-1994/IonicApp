@@ -16,6 +16,17 @@ export class UsuariosService {
       id: 1,
       nombre: "admin"
     }
+  },
+  {
+    id:2,
+    nombre: "Julio",
+    apellido: "Cifuentes",
+    username: "jcifuentes",
+    password: "julio123",
+    role:{
+      id: 2,
+      nombre: "usuario"
+    }
   }
 
   ]
@@ -30,5 +41,9 @@ export class UsuariosService {
       
     }
     return false;
+  }
+
+  obtener_usuario(username: string, password: string): Usuario | null {
+    return this.lista_de_usuarios.find(u => u.username === username && u.password === password) || null;
   }
 }
